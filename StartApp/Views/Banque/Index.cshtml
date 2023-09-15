@@ -1,0 +1,136 @@
+﻿@model List<StarApp.Core.Models.Banque>
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+}
+<div class="container">
+
+    @if (@TempData["success"] != null )
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+
+    }
+
+    <div asp.asp-validation-summary="All" class="text-danger"></div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Ajouter un Banque
+    </button>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createBanqueForm" asp-controller="banque" asp-action="create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" oninput="ValidateName()" required>
+                            <span id="errorName" style="color: red;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="rib">RIB (16-digit number)</label>
+                            <input type="text" class="form-control" id="rib" name="rib" oninput="validateCreditCard()" required>
+                            <span id="error" style="color: red;"></span><br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="subcreate" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="Col-md-8">
+        <h1>List of Banques</h1>
+
+        <table id="Table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>RIB</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var banque in Model)
+                {
+                    <tr>
+                        <td>@banque.Name</td>
+                        <td>@banque.Rib</td>
+                        <td> 
+                            <a style="margin-left:10px" asp-controller="banque" asp-action="Edit" class="btn btn-warning" asp-route-id="@banque.Id"> Edit</a>
+                            <a style="margin-left:10px" asp-controller="banque" asp-action="Delete" class="btn btn-danger" asp-route-id="@banque.Id"> Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+     </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/2.2.0/luxon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $('#Table').DataTable();
+
+    </script>
+
+    <script>
+       
+
+        document.getElementById('subcreate').addEventListener('click', function () {
+            validateCreditCard();
+            validateName();
+            var errorName = document.getElementById('errorName');
+            var errorSpan = document.getElementById('error');
+            if (errorName.textContent === '' && errorSpan.textContent==='') 
+            {
+                document.getElementById('createBanqueForm').submit();
+            }
+            
+            
+        });
+
+
+        function validateCreditCard() {
+            var creditCardInput = document.getElementById('rib');
+            var errorSpan = document.getElementById('error');
+
+            // Remove any previous error message
+            errorSpan.textContent = '';
+
+            // Remove spaces and check if the input is exactly 16 digits
+            var creditCardNumber = creditCardInput.value.replace(/\s/g, '');
+            if (creditCardNumber.length !== 16 || isNaN(creditCardNumber)) {
+                errorSpan.textContent = 'Invalid credit card number';
+            }
+        }
+
+        function validateName() {
+            var nameElement = document.getElementById('name');
+            var nameContent = nameElement.value.trim();
+            var errorName = document.getElementById('errorName');
+
+            // Clear previous error message
+            errorName.textContent = '';
+
+            if (nameContent === '') {
+                errorName.textContent = 'Name is required';
+            }
+        }
+        
+    </script>
+    
+}

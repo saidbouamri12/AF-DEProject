@@ -1,0 +1,38 @@
+﻿@model StarApp.Core.ModelsView.Chaintieruserview;
+<div class="row justify-content-center">
+    <h1> Create Chantier </h1>
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label>Name:</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Date Debit:</label>
+                <input type="date" asp-for="DebitDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Date Fin:</label>
+                <input type="date" asp-for="DateFin" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Utilisateur:</label>
+                <select class="form-control" asp-for="userid">
+                    <option value="">choose User </option>
+                    @foreach (var user in ViewBag.user)
+                    {
+                        <option value="@user.Id">@user.fullname </option>
+                    }  
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label>Complete:</label>
+                <input asp-for="Complete" class="form-check-input" />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Create" />
+            </div>
+        </form>
+    </div>
+</div>

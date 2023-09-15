@@ -1,0 +1,29 @@
+﻿@model StarApp.Core.Models.Compta.Chantier;
+<div class="row justify-content-center">
+
+    <h2>Details Chantier</h2> 
+    <div class="col-md-8">
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <th>DebitDate</th>
+                <td>@Model.DebitDate</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>@Model.DateFin</td>
+            </tr>
+            <tr>
+                <th>Complete</th>
+                <td>@Model.Complete</td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿@model List<StarApp.Core.ModelsView.EmployeeDetails>
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+
+}
+<div class="row justify-content-center">
+    
+    <div class="col-md-8">
+        <a class="btn btn-success" asp-action="Create" asp-controller="Employee">Create</a>
+        <h1 style="margin-bottom:20px">Table Employee</h1>
+        <table id="table" class="datatable">
+            <thead>
+                <tr>
+                    <th>Fullname</th>
+                    <th>Cin</th>
+                    <th>Tel</th>
+                    <th>Relationship</th>
+                    <th>NumCnss</th>
+                    <th>DateEmboche</th>
+                    <th>Salaire</th>
+                    <th>Specialty</th>
+                    <th>TypeContract</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@(item.Nom+" "+item.Prenom)</td>
+                        <td>@item.Cin</td>
+                        <td>@item.Tel</td>
+                        <td>@item.Relationship</td>
+                        <td>@item.NumCnss</td>
+                        <td>@item.DateEmboche</td>
+                        <td>@item.Salaire</td>
+                        <td>@item.Specialty</td>
+                        <td>@item.ContractType</td>
+                        <td>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-action="Edit" asp-controller="Employee" asp-route-id="@item.Id">Edit</a></li>
+                                @*<li><a class="dropdown-item" asp-action="Delete" asp-controller="Employee" asp-route-id="@item.Id">Delete</a></li>*@
+                                <li><a class="dropdown-item" asp-action="Details" asp-controller="Employee" asp-route-id="@item.Id">Details</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+   @section Scripts 
+   {
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/2.2.0/luxon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+     <script>
+        $('#table').DataTable();
+     </script>
+    
+
+     }

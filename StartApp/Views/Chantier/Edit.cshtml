@@ -1,0 +1,28 @@
+﻿@model StarApp.Core.Models.Compta.Chantier
+
+<div class="row justify-content-center">
+    <h1> Edit Chantiers </h1>
+    <div  class="col-md-6">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label>Name:</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Date Debit:</label>
+                <input asp-for="DebitDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Date Fin:</label>
+                <input asp-for="DateFin" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Complete:</label>
+                <input asp-for="Complete"  />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Edit" />
+            </div>
+        </form>
+    </div>
+</div>

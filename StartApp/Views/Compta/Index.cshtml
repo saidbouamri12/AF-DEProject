@@ -1,0 +1,292 @@
+﻿@using System.Globalization;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container">
+    <h1> Index Compta </h1>
+
+    @if (@TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+
+    }
+    @if (@TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+
+    }
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Ajouter un Banque
+    </button>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Compta" id="Createoperation" asp-action="Create" method="post" enctype="multipart/form-data" >
+                        @Html.AntiForgeryToken()
+                        <fieldset class="form-group border p-3">
+                            <legend class="w-auto px-2"> Data Banque </legend>
+                            <div class="md-3">
+                                <label for="BanqueId">banque:</label>
+                                <select id="BanqueId" name="OperatorBank.BanqueId" class="form-control" onchange="validationBanque()">
+                                    <option selected>Select Type Operation:</option>
+                                    @foreach (var banq in ViewBag.Banque)
+                                    {
+                                        <option value="@banq.Id">@banq.Name</option>
+                                    }
+                                </select>
+                                <span id="Banqueerror" style="color: red;"></span>
+                            </div>
+                            <div class="md-3">
+                                <label for="Date" class="form-label">Date:</label>
+                                <input type="date" class="form-control" id="Date" name="OperatorBank.Date" placeholder="Date Operation" required onchange="validateDate()" />
+                                <span id="Dateerror" style="color: red;"></span>
+                            </div>
+                            <div class="md-3">
+                                <label for="Paytype" class="form-label">Pay type:</label>
+                                <select name="OperatorBank.Paytype" id="Paytype" class="form-control" required onchange="validationpaytype()">
+                                    <option value="" selected>Select Type Operation:</option>
+                                    <option value="cheque">cheque</option>
+                                    <option value="vermaente">vermaente</option>
+                                    <option value="Traite">Traite</option>
+                                </select>
+                                <span id="Paytypeerror" style="color: red;"></span>
+                            </div>
+                            <div class="md-3">
+                                <label for="payCode" class="form-label">Code Operation:</label>
+                                <input class="form-control" id="payCode" type="text" name="OperatorBank.payCode" placeholder="Code de Operation" required oninput="validatePayCode()" />
+                                <span id="payCodeerror" style="color: red;"></span>
+                            </div>
+                            <div class="md-3">
+                                <label for="Ste" class="form-label"> Ste: </label>
+                                <input class="form-control" type="text" name="OperatorBank.Ste" placeholder="Ste de Operation" />
+                            </div>
+                            <div class="md-3">
+                                <label for="Tel" class="form-label"> Tel: </label>
+                                <input type="text" name="OperatorBank.Tel" class="form-control" placeholder="Telephone Ste:" />
+                            </div>
+                            <div class="md-3">
+                                <label for="MontantTTC" id="MontantTTClabel" class="form-label">Montant TTC:</label>
+                                <input type="text" id="MontantTTC" name="OperatorBank.MontantTTC" class="form-control" placeholder="Montant TTC:" required oninput="validateMontantTTC()" />
+                                <span id="MontantTTCerror" style="color: red;"></span>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group border p-3">
+                            <legend class="w-auto px-2">Data Facture</legend>
+                            <div class="md-3">
+                                <label for="Comercant" class="form-label">Nom de Comercant:</label>
+                                <input type="text" name="OperatorBank.Comercant" class="form-control" placeholder="Nom de Comercant" />
+                            </div>
+                            <div class="md-3">
+                                <label for="Nfacture" class="form-label">Number facture:</label>
+                                <input type="text" name="OperatorBank.Nfacture" class="form-control" placeholder="Number facture:" />
+                            </div>
+                            <div class="md-3">
+                                <label for="DeclarationTVA" class="form-label">Declaration de facture:</label>
+                                <select class="form-control" name="OperatorBank.DeclarationTVA">
+                                    <option value="">Select Mois Declaration  :</option>
+                                    @for (var i = 1; i < 13; i++)
+                                    {
+                                        <option value="TVA @i">TVA @i</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="md-3">
+                                <label for="FactureOrigin" class="form-label">Facture Origin</label>
+                                <select name="OperatorBank.FactureOrigin" class="form-control">
+                                    <option value="" selected>Select Type Operation:</option>
+                                    <option value="Image">imahe</option>
+                                    <option value="Origine">Origine</option>
+                                    <option value="Copie">Copie</option>
+                                </select>
+                            </div>
+                            <div class="md-3">
+                                <label for="File" class="form-label">Upload de facture:</label>
+                                <input type="file" name="File" class="form-control-file" placeholder="Upload de facture:" accept="image/*"  />
+                            </div>
+                        </fieldset>
+                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="subcreate" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion" id="outerAccordion">
+        @foreach(var data in ViewBag.Data)
+        {
+            <div class="accordion-item">
+            <h2 class="accordion-header" id="section1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                    @data.Year
+                </button>
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="section1" data-bs-parent="#outerAccordion">
+                <div class="accordion-body">
+
+                        @foreach (var monthData in data.AllMonthsData)
+                        {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="innerSection@(data.Year)M@(monthData.Month)">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#innerCollapse@(data.Year)M@(monthData.Month)">
+                                        @DateTimeFormatInfo.CurrentInfo.GetMonthName(monthData.Month)
+                                    </button>
+                                </h2>
+                                <div id="innerCollapse@(data.Year)M@(monthData.Month)" class="accordion-collapse collapse" aria-labelledby="innerSection@(data.Year)M@(monthData.Month)" data-bs-parent="#innerAccordion@(data.Year)">
+                                    <div class="accordion-body">
+                                        @foreach (var bank in ViewBag.Banque)
+                                        {
+                                            <a asp-action="Table_Banquemois" asp-controller="Compta" asp-route-id="@bank.Id" asp-route-Mouth="@monthData.Month" asp-route-Year="@data.Year" class="btn btn-warning" > @bank.Name </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+        }
+        <div class="accordion" id="outerAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="section1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse">
+                        Facture Non Declaré
+                    </button>
+                </h2>
+                <div id="collapse" class="accordion-collapse collapse" aria-labelledby="section1" data-bs-parent="#outerAccordion">
+                    <div class="accordion-body">
+                        
+                        <div class="accordion" id="innerAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="innerSection1">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#innerCollapse1">
+                                        Archive
+                                    </button>
+                                </h2>
+                                <div id="innerCollapse1" class="accordion-collapse collapse" aria-labelledby="innerSection1" data-bs-parent="#innerAccordion">
+                                    <div class="accordion-body">
+                                        <a asp-action="TableArchive" asp-controller="Compta" class="btn btn-warning"> Archive </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="innerSection2">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#innerCollapse2">
+                                        A demand
+                                    </button>
+                                </h2>
+                                <div id="innerCollapse2" class="accordion-collapse collapse" aria-labelledby="innerSection2" data-bs-parent="#innerAccordion">
+                                    <div class="accordion-body">
+                                        <a asp-action="TableaDemand" asp-controller="Compta"  class="btn btn-warning"> Demandé Facture </a>
+                                    </div>
+                                </div>
+                            </div>
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        document.getElementById('subcreate').addEventListener('click', function () {
+            
+            var Banqueerror = document.getElementById('Banqueerror');
+            var Dateerror = document.getElementById('Dateerror');
+            var Paytypeerror = document.getElementById('Paytypeerror');
+            var payCodeerror = document.getElementById('payCodeerror');
+            var MontantTTCerror = document.getElementById('MontantTTCerror');
+            validationBanque();
+            validateDate()
+            validationpaytype()
+            validatePayCode()
+            validateMontantTTC()
+            if (Banqueerror.textContent === '' && Dateerror.textContent === '' && Paytypeerror.textContent === '' && payCodeerror.textContent === '' && MontantTTCerror.textContent === '') {
+                document.getElementById('Createoperation').submit();
+            }
+
+
+        });
+
+        function validationBanque() {
+            var selectElement = document.getElementById("BanqueId");
+            var Banqueerror = document.getElementById('Banqueerror');
+            var selectedIndex = selectElement.selectedIndex;
+            Banqueerror.textContent='';
+            if (selectedIndex === 0) {
+                Banqueerror.textContent = "Please select a valid option.";
+               
+            }
+        }
+
+        function validateDate() {
+            var dateInput = document.getElementById("Date");
+            var selectedDate = dateInput.value;
+
+            if (selectedDate === "") {
+                document.getElementById("Dateerror").textContent = "Please select a date.";
+            } else {
+                document.getElementById("Dateerror").textContent = "";
+            }
+        }
+
+        function validationpaytype() {
+            var selectElement = document.getElementById("Paytype");
+            var Banqueerror = document.getElementById('Paytypeerror');
+            var selectedIndex = selectElement.selectedIndex;
+            Banqueerror.textContent = '';
+            if (selectedIndex === 0) {
+                Banqueerror.textContent = "Please select a valid option.";
+
+            }
+        }
+        function validatePayCode() {
+            var payCodeInput = document.getElementById("payCode");
+            var payCodeValue = payCodeInput.value;
+
+            // Check if the input is not empty and is a valid number
+            if (payCodeValue.trim() === "") {
+                document.getElementById("payCodeerror").textContent = "Code Operation is required.";
+            } else if (isNaN(payCodeValue)) {
+                document.getElementById("payCodeerror").textContent = "Please enter a valid number.";
+            } else {
+                document.getElementById("payCodeerror").textContent = "";
+            }
+        }
+        function validateMontantTTC() {
+            var montantTTCInput = document.getElementById("MontantTTC");
+            var montantTTCValue = montantTTCInput.value;
+            console.log(montantTTCValue);
+            // Check if the input is not empty and is a valid number
+            
+            if (montantTTCValue.trim() === '') {
+                document.getElementById("MontantTTCerror").textContent = "Montant TTC is required.";
+            } else if (isNaN(montantTTCValue)) {
+                document.getElementById("MontantTTCerror").textContent = "Please enter a valid number.";
+            } else {
+                document.getElementById("MontantTTCerror").textContent = "";
+            }
+        }
+    </script>
+ }

@@ -1,0 +1,183 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Edit</h1>
+
+@model StarApp.Core.ModelsView.OperatorBankViewModel;
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+<form asp-controller="Compta" id="Createoperation" asp-action="Edit" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2"> Data Banque </legend>
+        <div class="md-3">
+            <label for="BanqueId">banque:</label>
+            <select id="BanqueId" asp-for="OperatorBank.BanqueId" name="OperatorBank.BanqueId" class="form-control" onchange="validationBanque()">
+                <option selected>Select Type Operation:</option>
+                @foreach (var banq in ViewBag.Banque)
+                {
+                    <option value="@banq.Id">@banq.Name</option>
+                }
+            </select>
+            <span id="Banqueerror" style="color: red;"></span>
+        </div>
+        <div class="md-3">
+            <label for="Date" class="form-label">Date:</label>
+            <input type="date" class="form-control" id="Date" asp-for="OperatorBank.Date" placeholder="Date Operation" required onchange="validateDate()" />
+            <span id="Dateerror" style="color: red;"></span>
+        </div>
+        <div class="md-3">
+            <label for="Paytype" class="form-label">Pay type:</label>
+            <select asp-for="OperatorBank.Paytype" id="Paytype" class="form-control" required onchange="validationpaytype()">
+                <option value="" selected>Select Type Operation:</option>
+                <option value="cheque">cheque</option>
+                <option value="vermaente">vermaente</option>
+                <option value="Traite">Traite</option>
+            </select>
+            <span id="Paytypeerror" style="color: red;"></span>
+        </div>
+        <div class="md-3">
+            <label for="payCode" class="form-label">Code Operation:</label>
+            <input class="form-control" id="payCode" type="text" asp-for="OperatorBank.payCode" placeholder="Code de Operation" required oninput="validatePayCode()" />
+            <span id="payCodeerror" style="color: red;"></span>
+        </div>
+        <div class="md-3">
+            <label for="Ste" class="form-label"> Ste: </label>
+            <input class="form-control" type="text" asp-for="OperatorBank.Ste" placeholder="Ste de Operation" />
+        </div>
+        <div class="md-3">
+            <label for="Tel" class="form-label"> Tel: </label>
+            <input type="text" asp-for="OperatorBank.Tel" class="form-control" placeholder="Telephone Ste:" />
+                        <span id="teleerror" style="color: red;"></span>
+        </div>
+        <div class="md-3">
+            <label for="MontantTTC" id="MontantTTC" class="form-label">Montant TTC:</label>
+            <input type="text" asp-for="OperatorBank.MontantTTC" class="form-control" placeholder="Montant TTC:" required oninput="validateMontantTTC()" />
+            <span id="MontantTTCerror" style="color: red;"></span>
+        </div>
+    </fieldset>
+    <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Data Facture</legend>
+        <div class="md-3">
+            <label for="Comercant" class="form-label">Nom de Comercant:</label>
+            <input type="text" asp-for="OperatorBank.Comercant" class="form-control" placeholder="Nom de Comercant" />
+        </div>
+        <div class="md-3">
+            <label for="Nfacture" class="form-label">Number facture:</label>
+            <input type="text" asp-for="OperatorBank.Nfacture" class="form-control" placeholder="Number facture:" />
+        </div>
+        <div class="md-3">
+            <label for="DeclarationTVA" class="form-label">Declaration de facture:</label>
+            @*<input type="text" asp-for="OperatorBank.DeclarationTVA" class="form-control" placeholder="Declaration de facture:" />*@
+            <select asp-for="OperatorBank.DeclarationTVA">
+                <option value="">Select Mois Declaration  :</option>
+                @for(var i =1; i<13; i++)
+                {
+                    <option value="TVA @i">TVA @i</option>
+                }
+            </select>
+        </div>
+        <div class="md-3">
+            <label for="FactureOrigin" class="form-label">Facture Origin</label>
+            <select asp-for="OperatorBank.FactureOrigin" class="form-control">
+                <option value="" selected>Select Type Operation:</option>
+                <option value="Image">imahe</option>
+                <option value="Origine">Origine</option>
+                <option value="Copie">Copie</option>
+            </select>
+        </div>
+        <div class="md-3">
+            <label for="File" class="form-label">Upload de facture:</label>
+            <input type="file" asp-for="File" class="form-control-file" placeholder="Upload de facture:" />
+        </div>
+    </fieldset>
+    <button type="submit"> Submit</button>
+</form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        document.getElementById('subcreate').addEventListener('click', function () {
+
+            var Banqueerror = document.getElementById('Banqueerror');
+            var Dateerror = document.getElementById('Dateerror');
+            var Paytypeerror = document.getElementById('Paytypeerror');
+            var payCodeerror = document.getElementById('payCodeerror');
+            var MontantTTCerror = document.getElementById('MontantTTCerror');
+            validationBanque();
+            validateDate()
+            validationpaytype()
+            validatePayCode()
+            validateMontantTTC()
+            if (Banqueerror.textContent === '' && Dateerror.textContent === '' && Paytypeerror.textContent === '' && payCodeerror.textContent === '' && MontantTTCerror.textContent === '') {
+                document.getElementById('Createoperation').submit();
+            }
+
+
+        });
+
+        function validationBanque() {
+            var selectElement = document.getElementById("BanqueId");
+            var Banqueerror = document.getElementById('Banqueerror');
+            var selectedIndex = selectElement.selectedIndex;
+            Banqueerror.textContent = '';
+            if (selectedIndex === 0) {
+                Banqueerror.textContent = "Please select a valid option.";
+
+            }
+        }
+
+        function validateDate() {
+            var dateInput = document.getElementById("Date");
+            var selectedDate = dateInput.value;
+
+            if (selectedDate === "") {
+                document.getElementById("Dateerror").textContent = "Please select a date.";
+            } else {
+                document.getElementById("Dateerror").textContent = "";
+            }
+        }
+
+        function validationpaytype() {
+            var selectElement = document.getElementById("Paytype");
+            var Banqueerror = document.getElementById('Paytypeerror');
+            var selectedIndex = selectElement.selectedIndex;
+            Banqueerror.textContent = '';
+            if (selectedIndex === 0) {
+                Banqueerror.textContent = "Please select a valid option.";
+
+            }
+        }
+        function validatePayCode() {
+            var payCodeInput = document.getElementById("payCode");
+            var payCodeValue = payCodeInput.value;
+
+            // Check if the input is not empty and is a valid number
+            if (payCodeValue.trim() === "") {
+                document.getElementById("payCodeerror").textContent = "Code Operation is required.";
+            } else if (isNaN(payCodeValue)) {
+                document.getElementById("payCodeerror").textContent = "Please enter a valid number.";
+            } else {
+                document.getElementById("payCodeerror").textContent = "";
+            }
+        }
+        function validateMontantTTC() {
+            var montantTTCInput = document.getElementById("MontantTTC");
+            var montantTTCValue = montantTTCInput.value;
+            console.log(montantTTCValue);
+            // Check if the input is not empty and is a valid number
+
+            if (montantTTCValue.trim() === '') {
+                document.getElementById("MontantTTCerror").textContent = "Montant TTC is required.";
+            } else if (isNaN(montantTTCValue)) {
+                document.getElementById("MontantTTCerror").textContent = "Please enter a valid number.";
+            } else {
+                document.getElementById("MontantTTCerror").textContent = "";
+            }
+        }
+    </script>
+ }

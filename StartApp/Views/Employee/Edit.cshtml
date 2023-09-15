@@ -1,0 +1,187 @@
+﻿@model StarApp.Core.Models.Compta.Employee;
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Employee Create</h1>
+        <div class="col-md-10 border-1">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:10px">
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label class="label-block">Nom:</label>
+                            <input class="form-control" asp-for="Nom" />
+                            <span asp-validation-for="Nom" style="color:red"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label class="label-block">Prenom:</label>
+                            <input class="form-control" asp-for="prenom" />
+                            <span asp-validation-for="prenom" style="color:red"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label>Cin:</label>
+                            <input class="form-control" asp-for="cin" />
+                        </div>
+                    </div>
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label>Tel:</label>
+                            <input class="form-control" asp-for="Tel" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label> Nomber enfant :  </label>
+                            <input class="form-control" asp-for="Nomberenfant" />
+                        </div>
+                    </div>
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label> Num Cnss : </label>
+                            <input class="form-control" asp-for="Num_Cnss" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label> Date enboche: </label>
+                            <input type="Date" class="form-control" asp-for="Dateemboche" />
+                        </div>
+                    </div>
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label> Date end:</label>
+                            <input type="Date" class="form-control" asp-for="Dateend" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label>Specialty :</label>
+                            <select class="form-control" asp-for="Specialtyid">
+                                <option value="" selected> Choose Specialty: </option>
+                                @foreach (var spec in ViewBag.Specialty)
+                                {
+                                    <option value="@spec.id"> @spec.label </option>
+                                }
+                            </select>
+                            <span asp-validation-for="Specialtyid" style="color:red"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label> Contract Type: </label>
+                            <select class="form-control" asp-for="ContractTypeid">
+                                <option value="" selected> Choose Type Contract :</option>
+                                @foreach (var type in ViewBag.ContractType)
+                                {
+                                    <option value="@type.Id"> @type.label</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ContractTypeid" style="color:red"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label>Relations:</label>
+                            <select class="form-control" asp-for="RelationshipStatusid">
+                                <option value="">choose Relations </option>
+                                @foreach (var rela in ViewBag.RelationshipStatus)
+                                {
+                                    <option value="@rela.Id">@rela.Label </option>
+                                }
+                            </select>
+                            <span asp-validation-for="RelationshipStatusid" style="color:red"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label>Salaire :</label>
+                            <input class="form-control" asp-for="Salaire" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label>Carte Cnss File:</label>
+                            <input class="form-control" type="file" asp-for="Cartecnss" />
+                        </div>
+                    </div>
+                    <div class="col-md-5 md-3">
+                        <div class="form-group">
+                            <label>Carte Cin:</label>
+                            <input class="form-control" type="file" asp-for="CarteCin" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-10 md-3">
+                        <div class="form-group">
+                            <label>Contract:</label>
+                            <input class="form-control" type="file" asp-for="Contract" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-md-2 justify-content-center" style="margin-bottom:20px">
+                    <div class="col-md-10 md-3">
+                        <div class="form-group">
+                            <button class="btn btn-success" type="submit">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        function validatePhoneNumber(inputValue) {
+            const phoneNumberRegex = /^0[6-7]\d{8}$/;
+            const validationMessageElement = document.getElementById("validationMessage");
+
+            if (phoneNumberRegex.test(inputValue)) {
+                validationMessageElement.textContent = "Valid phone number";
+                validationMessageElement.style.color = "green";
+            } else {
+                validationMessageElement.textContent = "Invalid phone number";
+                validationMessageElement.style.color = "red";
+            }
+        }
+    </script>
+
+    @*<input type="text" id="inputField" oninput="validateInput(this)">
+    <div id="validationMessage"></div>*@
+
+    <script>
+        function validateCin(inputElement) {
+            const regexPattern = /^[A-Z]\d+$/; // Your regex pattern here
+            const inputValue = inputElement.value;
+            const validationMessage = document.getElementById("validationMessage");
+
+            if (regexPattern.test(inputValue)) {
+                validationMessage.textContent = "Input is valid.";
+                validationMessage.style.color = "green";
+            } else {
+                validationMessage.textContent = "Input is not valid.";
+                validationMessage.style.color = "red";
+            }
+        }
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿@model StarApp.Core.ModelsView.EmployeeDetails;
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1> Details Employee </h1>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <td>@Model.Nom</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>@Model.Prenom</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>@Model.Cin</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>@Model.Tel</td>
+            </tr>
+            <tr>
+                <th>Relationship</th>
+                <td>@Model.Relationship</td>
+            </tr>
+            <tr>
+                <th>Nomber Enfant</th>
+                <td> @Model.NomberEnfant </td>
+            </tr>
+            <tr>
+                <th>Numero Cnss</th>
+                <td>@Model.NumCnss</td>
+            </tr>
+            <tr>
+                <th>Date Emboche</th>
+                <td>@Model.DateEmboche</td>
+            </tr>
+            <tr>
+                <th>Date End</th>
+                <td>@Model.DateEnd</td>
+            </tr>
+            <tr>
+                <th>Salaire</th>
+                <td>@Model.Salaire</td>
+            </tr>
+            <tr>
+                <th>Specialty</th>
+                <td>@Model.Specialty</td>
+            </tr>
+            <tr>
+                <th>Type Contract </th>
+                <td>@Model.ContractType</td>
+            </tr>
+            <tr>
+                <th>Contract Image</th>
+                <td><img src="~/images/@Model.ContractPath" asp-append-version="true" /></td>
+            </tr>
+            <tr>
+                <th>Carte Cin Image</th>
+                <td><img src="~/images/@Model.CarteCinPath" asp-append-version="true" /></td>
+            </tr>
+            <tr>
+                <th>Carte cnss</th>
+                <td><img src="~/images/@Model.CartecnssPath" asp-append-version="true" /></td>
+            </tr>
+        </table>
+    </div>
+</div>

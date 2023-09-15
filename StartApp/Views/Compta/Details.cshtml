@@ -1,0 +1,63 @@
+﻿@model StarApp.Core.ModelsView.Bankoperatorview;
+<h1>Details</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Banque:</th>
+                        <td>@Model.BanqueName</td>
+                    </tr>
+                    <tr>
+                        <th>Date:</th>
+                        <td>@Model.Date</td>
+                    </tr>
+                    <tr>
+                        <th>Paytype:</th>
+                        <td>@Model.Paytype</td>
+                    </tr>
+                    <tr>
+                        <th>Ste:</th>
+                        <td>@Model.Ste</td>
+                    </tr>
+                     <tr>
+                        <th>Tel:</th>
+                        <td>@Model.Tel</td>
+                    </tr>
+                    <tr>
+                        <th>MontantTTC:</th>
+                        <td>@Model.MontantTTC</td>
+                    </tr>
+                    <tr>
+                        <th>Comercant:</th>
+                        <td>@Model.Comercant</td>
+                    </tr>
+                    <tr>
+                        <th>Number facture:</th>
+                        <td>@Model.Nfacture</td>
+                    </tr>
+                    <tr>
+                        <th>Declaration TVA:</th>
+                        <td>@Model.DeclarationTVA</td>
+                    </tr>
+                    <tr>
+                        <th>Facture Origin</th>
+                        <td> @Model.FactureOrigin </td>
+                    </tr>
+                    <tr>
+                        <th>image</th>
+                        <td>
+                            <img src="~/images/@Model.FacturePath" asp-append-version="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><a class="btn btn-warning" asp-action="Edit" asp-controller="Compta" asp-route-id="@Model.Id"> Edit</a></th>
+                        <td><a class="btn btn-danger" asp-action="Delete" asp-controller="Compta" asp-route-id="@Model.Id"> Delete</a></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

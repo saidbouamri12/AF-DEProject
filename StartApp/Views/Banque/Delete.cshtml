@@ -1,0 +1,16 @@
+﻿@model StarApp.Core.Models.Banque
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 justify-content-center">
+              <h3>do you want delete this banque?</h3>
+              <p> Name: @Model.Name </p>
+              <p> Rib:  @Model.Rib </p>
+              <form asp-controller="banque" asp-action="Delete" asp-route-id="@Model.Id">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+         </div>
+    </div>
+</div>

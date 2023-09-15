@@ -1,0 +1,27 @@
+﻿@model StarApp.Core.ModelsView.chantierUsercreateView;
+
+<div class="row justify-content-center">
+    <h1> Create Chantier </h1>
+    <div class="col-md-6">
+        <form asp-action="ChantierUser" method="post">
+            <div class="form-group">
+               <input type="hidden" asp-for="userid" />
+
+            </div>
+            <div class="form-group">
+                <label>Chantier:</label>
+                <select class="form-control" asp-for="ChantierId">
+                    <option value="">choose Chantier </option>
+                    @foreach (var user in ViewBag.Chantier)
+                    {
+                        <option value="@user.ID">@user.Name </option>
+                    }
+                </select>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Create" />
+            </div>
+        </form>
+    </div>
+</div>

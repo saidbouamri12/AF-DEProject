@@ -1,0 +1,66 @@
+﻿@model StarApp.Core.ModelsView.Loginview
+
+@*<div class="alert alert-danger">
+    <span asp-validation-for="email"> </span>
+    <span asp-validation-for="password"></span>
+</div>*@
+
+
+
+<div class="container">
+
+
+
+    <div class="alert alert-danger">
+
+    </div>
+    <div class="row justify-content-center">
+        
+         <div class="col-md-6">
+               <div class="card" >
+                <div class="card-header text-center" style="border: none; background-color:white;">
+                    <img src="https://clipground.com/images/hospital-logo-clipart-1.jpg" style="width: 100px; height: 100px;" alt="Circular Image" class="rounded-circle">
+                    <h3>Login</h3>
+                </div>
+                    <div class="card-body">
+                        <form asp-action="Login" method="post">
+                            <div class="form-group">
+                                <label for="email">email:</label>
+                                <input type="text" class="form-control" id="email" name="email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" />
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check" style="margin-top:8px">
+                                            <input type="checkbox" class="form-check-input" id="RememberMe" name="RememberMe" />
+                                            <label class="form-check-label" for="RememberMe">Remember me</label>
+                                        </div>
+                                    </div>
+                                 </div>
+
+                                 <div class="col-md-6 text-end">
+                                <p><a asp-controller="Account" asp-action="ForgotPassword" class="link-offset-2 link-underline link-underline-opacity-0" >Forgot your Password?</a></p>
+                                 </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" >
+                                   <button style="margin-left:80px; margin-top:10px; width:100px; " type="submit" class="btn btn-primary">Login</button>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                   <p style="margin-top:17px">Don't have an account? <a asp-controller="Account" asp-action="register" class="link-offset-2 link-underline link-underline-opacity-0" >Sign up</a></p>
+                                </div>
+                                     
+                            </div>
+                            
+                      </form>
+                    </div>
+
+               </div>
+         </div>
+    </div>
+</div>
