@@ -21,6 +21,8 @@ namespace StartApp.EF.DBContext
         public DbSet<Chantier> Chantiers { get; set; }
         public DbSet<ChantierDetails> ChantierDetails { get; set; }
         public DbSet<Periods> Periods { get; set; }
+        public DbSet<pointage> pointage { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 

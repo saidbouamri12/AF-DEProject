@@ -17,7 +17,7 @@ namespace StartApp.Controllers
         }
         public IActionResult Index()
         {
-            int t = 1;
+           // int t = 1;
             if (User.Identity.IsAuthenticated)
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
