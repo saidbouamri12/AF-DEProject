@@ -1,0 +1,17 @@
+﻿@model StarApp.Core.ModelsView.periodchantier;
+<h1>Period Details</h1>
+<dl class="row">
+    <dt class="col-sm-2">ID:</dt>
+    <dd class="col-sm-10">@Model.Id</dd>
+    <dt class="col-sm-2">Chantier:</dt>
+    <dd class="col-sm-10">@Model.chantiername</dd>
+    <dt class="col-sm-2">Chapter ID:</dt>
+    <dd class="col-sm-10">@Model.ChaniterID</dd>
+    <dt class="col-sm-2">Start Date:</dt>
+    <dd class="col-sm-10">@Model.datedebit.ToShortDateString()</dd>
+    <dt class="col-sm-2">End Date:</dt>
+    <dd class="col-sm-10">@Model.Datefin.ToShortDateString()</dd>
+    <dt class="col-sm-2">Count Day:</dt>
+    <dd class="col-sm-10">@Model.CountDay</dd>
+</dl>
+<a asp-action="Index">Back to List</a>

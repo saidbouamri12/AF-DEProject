@@ -1,0 +1,41 @@
+﻿@model StarApp.Core.Models.Compta.Periods;
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Periods Edit</h1>
+        <div class="col-md-10 border-1">
+
+<form asp-action="Edit" asp-route-id="@Model.Id">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label for="ChaniterID">Chapter ID:</label>
+        <select asp-for="ChaniterID" class="form-control">
+            <option value="">Select a chantier</option>
+            @foreach (var chapter in ViewBag.chantier)
+            {
+                if(Model.Id== chapter.id)
+                {
+                    <option value="@chapter.Id" selected>@chapter.Name</option>
+                }
+                else
+                {
+                    <option value="@chapter.Id">@chapter.Name</option>
+                }
+                
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="datedebit">Start Date:</label>
+        <input type="date" class="form-control" asp-for="datedebit">
+    </div>
+    <div class="form-group">
+        <label for="Datefin">End Date:</label>
+        <input type="date" class="form-control" asp-for="Datefin">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>

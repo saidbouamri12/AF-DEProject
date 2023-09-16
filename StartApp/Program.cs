@@ -46,7 +46,7 @@ app.UseMiddleware<EmailConfirmationMiddleware>();
 //});
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Usermanage}/{id?}");
+    pattern: "{controller=pointage}/{action=Index}/{id?}");
 
 app.Run();
 

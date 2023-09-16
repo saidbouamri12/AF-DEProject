@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model StarApp.Core.Models.Compta.Periods;
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Periods Create</h1>
+        <div class="col-md-10 border-1">
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="ChaniterID">Chapter ID:</label>
+        <select asp-for="ChaniterID" class="form-control">
+            <option value="">Select a chantier</option>
+            @foreach (var chapter in ViewBag.chantier)
+            {
+                            <option value="@chapter.ID">@chapter.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="datedebit">Start Date:</label>
+        <input type="date" class="form-control" asp-for="datedebit">
+    </div>
+    <div class="form-group">
+        <label for="Datefin">End Date:</label>
+        <input type="date" class="form-control" asp-for="Datefin">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+<a asp-action="Index">Back to List</a>
+
+         </div>
+    </div>
+</div>
